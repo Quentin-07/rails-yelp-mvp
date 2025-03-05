@@ -3,10 +3,24 @@
 <p><%= @restaurant.phone_number %></p>
 <p><%= @restaurant.category %></p>
 <br>
+<p><strong>Reviews</strong></p>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item">
+      <%= review.content %> ------ Note: <%= review.rating %>
+      <%= link_to "Delete",
+          review_path(review),
+          data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+      %>
+    </li>
+  <% end %>
+</ul>
+<br>
 <p>--------------------------------------------------</p>
 <br>
-<%= link_to 'Delete', restaurant_path(@restaurant),
+<%#= link_to 'Delete', restaurant_path(@restaurant),
   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-<%= link_to 'Editer', edit_restaurant_path(@restaurant) %>
+<%#= link_to 'Editer', edit_restaurant_path(@restaurant) %>
+<%= link_to 'Add a Review', new_restaurant_review_path(@restaurant) %>
 <br>
 <%= link_to 'Les restaurants', restaurants_path %>
